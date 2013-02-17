@@ -1,3 +1,6 @@
+// An example Parse.js Backbone application based on the todo app by
+// [Jérôme Gravel-Niquet](http://jgn.me/). This demo uses Parse to persist
+// the todo items and provide user authentication and sessions.
 
 $(function () {
 
@@ -7,25 +10,25 @@ $(function () {
     Parse.initialize("8qnlnHykLKo49vGtdJjkEnpzRdMIKW7bp9zAgbct",
         "RuuaHGlOJKkWjvBAEtkOK0D4dRieSkryhMx1kg9x");
 
-    // TodoA Model
+    // Todo Model
     // ----------
 
-    // Our basic TodoA model has `content`, `order`, and `done` attributes.
+    // Our basic Todo model has `content`, `order`, and `done` attributes.
     var Todo = Parse.Object.extend("Todo", {
-        // Default attributes for the todoA.
+        // Default attributes for the todo.
         defaults:{
             content:"empty todo...",
             done:false
         },
 
-        // Ensure that each todoA created has `content`.
+        // Ensure that each todo created has `content`.
         initialize:function () {
             if (!this.get("content")) {
                 this.set({"content":this.defaults.content});
             }
         },
 
-        // Toggle the `done` state of this todoA item.
+        // Toggle the `done` state of this todo item.
         toggle:function () {
             this.save({done:!this.get("done")});
         }
@@ -38,7 +41,7 @@ $(function () {
         }
     });
 
-    // TodoA Collection
+    // Todo Collection
     // ---------------
 
     var TodoList = Parse.Collection.extend({
@@ -46,14 +49,14 @@ $(function () {
         // Reference to this collection's model.
         model:Todo,
 
-        // Filter down the list of all todoA items that are finished.
+        // Filter down the list of all todo items that are finished.
         done:function () {
             return this.filter(function (todo) {
                 return todo.get('done');
             });
         },
 
-        // Filter down the list to only todoA items that are still not finished.
+        // Filter down the list to only todo items that are still not finished.
         remaining:function () {
             return this.without.apply(this, this.done());
         },
@@ -72,10 +75,10 @@ $(function () {
 
     });
 
-    // TodoA Item View
+    // Todo Item View
     // --------------
 
-    // The DOM element for a todoA item...
+    // The DOM element for a todo item...
     var TodoView = Parse.View.extend({
 
         //... is a list tag.
@@ -94,7 +97,7 @@ $(function () {
         },
 
         // The TodoView listens for changes to its model, re-rendering. Since there's
-        // a one-to-one correspondence between a TodoA and a TodoView in this
+        // a one-to-one correspondence between a Todo and a TodoView in this
         // app, we set a direct reference on the model for convenience.
         initialize:function () {
             _.bindAll(this, 'render', 'close', 'remove');
@@ -102,7 +105,7 @@ $(function () {
             this.model.bind('destroy', this.remove);
         },
 
-        // Re-render the contents of the todoA item.
+        // Re-render the contents of the todo item.
         render:function () {
             $(this.el).html(this.template(this.model.toJSON()));
             this.input = this.$('.edit');
@@ -120,7 +123,7 @@ $(function () {
             this.input.focus();
         },
 
-        // Close the `"editing"` mode, saving changes to the todoA.
+        // Close the `"editing"` mode, saving changes to the todo.
         close:function () {
             this.model.save({content:this.input.val()});
             $(this.el).removeClass("editing");
@@ -141,8 +144,8 @@ $(function () {
     // The Application
     // ---------------
 
-    // The main view that lets a user manage their todoA items
-    window.ManageTodosView = Parse.View.extend({
+    // The main view that lets a user manage their todo items
+    var ManageTodosView = Parse.View.extend({
 
         // Our template for the line of statistics at the bottom of the app.
         statsTemplate:_.template($('#stats-template').html()),
@@ -166,7 +169,7 @@ $(function () {
 
             _.bindAll(this, 'addOne', 'addAll', 'addSome', 'render', 'toggleAllComplete', 'logOut', 'createOnEnter');
 
-            // Main todoA management template
+            // Main todo management template
             this.$el.html(_.template($("#manage-todos-template").html()));
 
             this.input = this.$("#new-todo");
@@ -183,7 +186,7 @@ $(function () {
             this.todos.bind('reset', this.addAll);
             this.todos.bind('all', this.render);
 
-            // Fetch all the todoA items for this user
+            // Fetch all the todo items for this user
             this.todos.fetch();
 
             state.on("change", this.filter, this);
@@ -246,7 +249,7 @@ $(function () {
             this.addAll();
         },
 
-        // Add a single todoA item to the list by creating a view for it, and
+        // Add a single todo item to the list by creating a view for it, and
         // appending its element to the `<ul>`.
         addOne:function (todo) {
             var view = new TodoView({model:todo});
@@ -268,7 +271,7 @@ $(function () {
             });
         },
 
-        // If you hit return in the main input field, create new TodoA model
+        // If you hit return in the main input field, create new Todo model
         createOnEnter:function (e) {
             var self = this;
             if (e.keyCode != 13) return;
@@ -285,7 +288,7 @@ $(function () {
             this.resetFilters();
         },
 
-        // Clear all done todoA items, destroying their models.
+        // Clear all done todo items, destroying their models.
         clearCompleted:function () {
             _.each(this.todos.done(), function (todo) {
                 todo.destroy();
@@ -298,6 +301,71 @@ $(function () {
             this.todos.each(function (todo) {
                 todo.save({'done':done});
             });
+        }
+    });
+
+    var LogInView = Parse.View.extend({
+        events:{
+            "submit form.login-form":"logIn",
+            "submit form.signup-form":"signUp"
+        },
+
+        el:".content",
+
+        initialize:function () {
+            _.bindAll(this, "logIn", "signUp");
+            this.render();
+        },
+
+        logIn:function (e) {
+            var self = this;
+            var username = this.$("#login-username").val();
+            var password = this.$("#login-password").val();
+
+            Parse.User.logIn(username, password, {
+                success:function (user) {
+                    new ManageTodosView();
+                    self.undelegateEvents();
+                    delete self;
+                },
+
+                error:function (user, error) {
+                    self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
+                    this.$(".login-form button").removeAttr("disabled");
+                }
+            });
+
+            this.$(".login-form button").attr("disabled", "disabled");
+
+            return false;
+        },
+
+        signUp:function (e) {
+            var self = this;
+            var username = this.$("#signup-username").val();
+            var password = this.$("#signup-password").val();
+
+            Parse.User.signUp(username, password, { ACL:new Parse.ACL() }, {
+                success:function (user) {
+                    new ManageTodosView();
+                    self.undelegateEvents();
+                    delete self;
+                },
+
+                error:function (user, error) {
+                    self.$(".signup-form .error").html(error.message).show();
+                    this.$(".signup-form button").removeAttr("disabled");
+                }
+            });
+
+            this.$(".signup-form button").attr("disabled", "disabled");
+
+            return false;
+        },
+
+        render:function () {
+            this.$el.html(_.template($("#login-template").html()));
+            this.delegateEvents();
         }
     });
 
