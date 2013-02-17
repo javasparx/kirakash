@@ -1,1 +1,6 @@
 This file was created by IntelliJ IDEA 11.1.5 for binding GitHub repository
+
+        Coding rules
+1. Declare global variables into “window”. Like: “window.GlobalVariable”
+2. Globals with capital letter
+3. Optimize locally, after we reach some goal will be optimized globally
