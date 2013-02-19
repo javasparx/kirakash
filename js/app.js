@@ -323,12 +323,13 @@ $(function () {
 
                     var login = new window.LogInView().render();
 
-                    new window.PopupForm({
+                    var popup = new window.PopupForm({
                         onClose:function(){
 //                            login.$el.remove();
                         },
                         onAccepted:function(){
                             login.signUp();
+                            popup.close();
                         },
                         title:"Sign Up",
                         more:"This is sign up window",
