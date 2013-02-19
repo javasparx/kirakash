@@ -317,24 +317,25 @@ $(function () {
                 /*TODO - remove after dev*/
 
 
-                $("#test-signup").click(function(){
+                $("#test-signup").click(function () {
 
                     var login = new window.LogInView().render();
 
                     var popup = new window.PopupForm({
-                        onClose:function(){
+                        onClose:function () {
 //                            login.$el.remove();
                         },
-                        onAccepted:function(){
-                            login.signUp();
-                            popup.close();
+                        onAccepted:function () {
+                            login.signUp(function () {
+                                popup.close();
+                            });
                         },
                         title:"Sign Up",
                         more:"This is sign up window",
                         popupWidth:450,
                         showOkButton:false,
-                        buttonText:"OK",
-                        content: login.$el
+                        buttonText:"Sign Up",
+                        content:login.$el
                     });
                 });
 

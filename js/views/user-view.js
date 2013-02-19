@@ -39,7 +39,7 @@ window.LogInView = Parse.View.extend({
         return false;
     },
 
-    signUp:function (e) {
+    signUp:function (callback) {
         var self = this;
         var password = this.$("#signup-password").val();
         var passwordConfirm = this.$("#signup-password-confirm").val();
@@ -68,6 +68,9 @@ window.LogInView = Parse.View.extend({
                 new ManageTodosView();
                 self.undelegateEvents();
                 delete self;
+                if(_.isFunction(callback)){
+                    callback();
+                }
             },
             error:function (user, error) {
                 self.$(".signup-form .error").html(error.message).show();
