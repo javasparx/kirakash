@@ -1,4 +1,3 @@
-
 $(function () {
 
     Parse.$ = jQuery;
@@ -192,7 +191,7 @@ $(function () {
         // Logs out the user and shows the login view
         logOut:function (e) {
             Parse.User.logOut();
-            new LogInView();
+            new window.LogInView();
             this.undelegateEvents();
             delete this;
         },
@@ -315,7 +314,32 @@ $(function () {
             if (Parse.User.current()) {
                 new ManageTodosView();
             } else {
-                new LogInView();
+
+                /*TODO - remove after dev*/
+
+
+
+                $("#test-button").click(function(){
+
+                    var login = new window.LogInView().render();
+
+                    new window.PopupForm({
+                        onClose:function(){
+//                            login.$el.remove();
+                        },
+                        onAccepted:function(){
+                            login.signUp();
+                        },
+                        title:"Sign Up",
+                        more:"This is sign up window",
+                        popupWidth:450,
+                        showOkButton:false,
+                        buttonText:"OK",
+                        content: login.$el
+                    });
+                });
+
+
             }
         }
     });

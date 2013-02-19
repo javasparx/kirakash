@@ -4,9 +4,12 @@
     <meta charset="utf-8">
     <title>Parse JavaScript Todo App</title>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/core.css" media="all" rel="stylesheet" type="text/css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/underscore-1.1.6.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>
+    <script src="js/core.js"></script>
+    <script src="js/views/popup-form.js"></script>
     <script src="js/views/user-view.js"></script>
     <script src="js/app.js"></script>
 </head>
@@ -17,8 +20,9 @@
 
 <div id="todoapp">
     <div class="title">
-        <h1>Parse Todos</h1>
+        <h1>KiraKash.UZ</h1>
     </div>
+    <a id="test-button" class="button">Click me</a>
 
     <div class="content">
     </div>
@@ -27,6 +31,14 @@
 <div id="credits">
     Powered by <a href="https://www.parse.com">Parse</a> using the <a href="https://www.parse.com/docs/js_guide">JavaScript
     SDK</a>
+</div>
+
+<div id="popup-con">
+
+</div>
+
+<div id="overlay" class="transparent">
+
 </div>
 
 <!-- Templates -->
@@ -48,10 +60,63 @@
 
             <div class="error" style="display:none"></div>
             <input type="text" id="signup-username" placeholder="Username"/>
-            <input type="password" id="signup-password" placeholder="Create a Password"/>
+            <input type="email" id="signup-email" placeholder="example@mail.com"/>
+            <input type="password" id="signup-password" placeholder="Password"/>
+            <input type="password" id="signup-password-confirm" placeholder="Confirm Password"/>
+            <input type="text" id="signup-city" placeholder="City"/>
+            <input type="text" id="signup-phone" placeholder="+99812 345 67 89"/>
             <button>Sign Up</button>
         </form>
     </div>
+</script>
+
+<script type="text/template" id="signup-template">
+    <div class="login">
+        <form class="signup-form">
+            <div class="error" style="display:none"></div>
+            <div class="txt-field">
+                <label for="signup-username">Username</label>
+                <input type="text" id="signup-username" placeholder="Username"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" placeholder="example@mail.com"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="signup-password">Password</label>
+                <input type="password" id="signup-password" placeholder="Password"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="signup-password-confirm">Confirm Password</label>
+                <input type="password" id="signup-password-confirm" placeholder="Confirm Password"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="signup-city">City</label>
+                <input type="text" id="signup-city" placeholder="City"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="signup-phone">Phone Number</label>
+                <input type="text" id="signup-phone" placeholder="+99812 345 67 89"/>
+            </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/template" id="popup-template">
+
+    <div class="popup-header">
+        <div class="title"><%= temp.title %></div>
+        <p><%= temp.more %></p>
+        <a class="right popup-close pointer">X</a>
+    </div>
+    <div class="popup-content"></div>
+    <div class="popup-footer"><a class="button"><%= temp.buttonText %></a></div>
+
 </script>
 
 <script type="text/template" id="manage-todos-template">
