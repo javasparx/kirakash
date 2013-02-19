@@ -314,12 +314,10 @@ $(function () {
             if (Parse.User.current()) {
                 new ManageTodosView();
             } else {
-
                 /*TODO - remove after dev*/
 
 
-
-                $("#test-button").click(function(){
+                $("#test-signup").click(function(){
 
                     var login = new window.LogInView().render();
 
@@ -339,7 +337,6 @@ $(function () {
                         content: login.$el
                     });
                 });
-
 
             }
         }
