@@ -316,10 +316,30 @@ $(function () {
             } else {
                 /*TODO - remove after dev*/
 
+                $("#test-login").click(function () {
 
+                    var login = new window.LogInView().loginForm();
+
+                    var popup = new window.PopupForm({
+                        onClose: function () {
+                            //                            login.$el.remove();
+                        },
+                        onAccepted: function () {
+                            login.logIn(function () {
+                                popup.close();
+                            });
+                        },
+                        title: "Login",
+//                        more: "This is login window",
+                        popupWidth: 300,
+                        showOkButton: false,
+                        buttonText: "Login",
+                        content: login.$el
+                    });
+                });
                 $("#test-signup").click(function () {
 
-                    var login = new window.LogInView().render();
+                    var login = new window.LogInView().signUpForm();
 
                     var popup = new window.PopupForm({
                         onClose:function () {

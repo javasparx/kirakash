@@ -26,15 +26,18 @@ window.LogInView = Parse.View.extend({
                 new window.ManageTodosView();
                 self.undelegateEvents();
                 delete self;
+                if (_.isFunction(e)) {
+                    e();
+                }
             },
 
             error:function (user, error) {
                 self.$(".login-form .error").html("Invalid username or password. Please try again.").show();
-                self.$(".login-form button").removeAttr("disabled");
+                self.$(".login-form .button").removeAttr("disabled");
             }
         });
 
-        this.$(".login-form button").attr("disabled", "disabled");
+        this.$(".login-form .button").attr("disabled", "disabled");
 
         return false;
     },
@@ -83,10 +86,15 @@ window.LogInView = Parse.View.extend({
         return false;
     },
 
-    render:function () {
+    signUpForm:function () {
         this.$el.html(_.template($("#signup-template").html()));
         this.fillFields();
         this.delegateEvents();
+        return this;
+    },
+
+    loginForm:function () {
+        this.$el.html(_.template($("#login-template").html()));
         return this;
     },
 
