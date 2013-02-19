@@ -13,7 +13,7 @@
  *      var popup = new PopupView({
  *              title:'Title Text',
  *              content: anyHTML,
- *              okClicked:myFunction
+ *              onAccepted:myFunction
  *      });
  *
  *      myFunction = function(){
@@ -32,14 +32,22 @@ window.PopupForm = Parse.View.extend({
     initialize:function () {
         _.bindAll(this, "ok", "close");
 
-        var defaults = {top:100, overlay:0.5, closeButton:null};
+        var defaults = {
+            top:100,
+            overlay:0.5,
+            closeButton:null,
+            buttonText:"OK",
+            popupWidth:null,
+            popupHeight:null,
+            showOkButton:null
+        };
 
         this.options = $.extend(defaults, this.options);
 
-        this.buttonText = this.options.buttonText;
-        this.popupWidth = this.options.popupWidth ? this.options.popupWidth : null;
-        this.popupHeight = this.options.popupHeight ? this.options.popupHeight : null;
-        this.showOkButton = (this.options.showOkButton != false);
+//        this.buttonText = this.options.buttonText;
+//        this.popupWidth = this.options.popupWidth ? this.options.popupWidth : null;
+//        this.popupHeight = this.options.popupHeight ? this.options.popupHeight : null;
+//        this.showOkButton = (this.options.showOkButton != false);
 
         this.render();
     },
@@ -56,7 +64,7 @@ window.PopupForm = Parse.View.extend({
         this.$el.html(this.template({
             temp:{
                 title:self.options.title,
-                buttonText:self.buttonText,
+                buttonText:self.options.buttonText,
                 more:self.options.more
             }
         }));
@@ -70,18 +78,18 @@ window.PopupForm = Parse.View.extend({
 
         $('body').append(this.$el);
 
-        if (this.popupWidth != null) {
+        if (this.options.popupWidth != null) {
             self.$el.css({
-                width:self.popupWidth + 'px'
+                width:self.options.popupWidth + 'px'
             });
         }
 
-        if (this.popupHeight != null) {
-            this.$el.height(this.popupHeight);
+        if (this.options.popupHeight != null) {
+            this.$el.height(this.options.popupHeight);
         }
 
-        if (this.showOkButton) {
-            $('.button', this.$el).show();
+        if (this.options.showOkButton != false) {
+            $('.popup-footer', this.$el).show();
         }
 
         //Use cached "this.$el" instead of "$(this.el)"

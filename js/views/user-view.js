@@ -44,7 +44,7 @@ window.LogInView = Parse.View.extend({
         var password = this.$("#signup-password").val();
         var passwordConfirm = this.$("#signup-password-confirm").val();
 
-        if(password != passwordConfirm){
+        if (password != passwordConfirm) {
             this.$(".signup-form .error").html("Password and Password Confirm should be same").show();
             return false;
         }
@@ -60,6 +60,7 @@ window.LogInView = Parse.View.extend({
         user.set("phone", phone);
         user.set("city", city);
         user.set("email", email);
+//        user.set("vehicle", email);
 
         user.set("ACL", new Parse.ACL());
 
@@ -68,7 +69,7 @@ window.LogInView = Parse.View.extend({
                 new ManageTodosView();
                 self.undelegateEvents();
                 delete self;
-                if(_.isFunction(callback)){
+                if (_.isFunction(callback)) {
                     callback();
                 }
             },
@@ -91,12 +92,28 @@ window.LogInView = Parse.View.extend({
     },
 
     /*Todo remove after development*/
-    fillFields:function(){
+    fillFields:function () {
         this.$("#signup-username").val("javasparx");
         this.$("#signup-password").val("123");
         this.$("#signup-password-confirm").val("123");
         this.$("#signup-phone").val("+998936446363");
         this.$("#signup-city").val("Namangan");
         this.$("#signup-email").val("example@example.com");
+    }
+});
+
+window.UserModel = Parse.Object.extend("User", {
+    defaults:{
+        active:true,
+        username:"",
+        password:"",
+        phone:"",
+        city:"",
+        email:"",
+        ACL:"",
+        mobile:"",
+        vehicle:"",
+        name:"",
+        more:""
     }
 });

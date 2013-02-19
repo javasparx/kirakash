@@ -6,6 +6,7 @@
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/core.css" media="all" rel="stylesheet" type="text/css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/jquery-ui-1.10.1.custom.js"></script>
     <script src="js/underscore-1.1.6.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>
     <script src="js/core.js"></script>
@@ -30,12 +31,7 @@
 </div>
 
 <div id="credits">
-    Powered by <a href="https://www.parse.com">Parse</a> using the <a href="https://www.parse.com/docs/js_guide">JavaScript
-    SDK</a>
-</div>
-
-<div id="popup-con">
-
+    Designed by SPARX.
 </div>
 
 <div id="overlay" class="transparent">
@@ -62,8 +58,9 @@
 
 <script type="text/template" id="signup-template">
     <div class="login">
-        <form class="signup-form">
+        <form class="signup-form" name="Sign Up">
             <div class="error" style="display:none"></div>
+            <input type="hidden" class="more" value="It will take only 30 seconds">
             <div class="txt-field">
                 <label for="signup-username">Username</label>
                 <input type="text" id="signup-username" placeholder="Username"/>

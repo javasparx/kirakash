@@ -139,7 +139,7 @@
 
 /*----------Buttons-End----------*/
 
-/*----------Buttons-Start----------*/
+/*----------Inputs-Start----------*/
 
 .txt-field {
     position: relative;
@@ -175,5 +175,8 @@
     border-bottom-color: #E7E6E6;
 }
 
-/*----------Buttons-End----------*/
+.txt-field input.good-input {
+    background: #DEF5E1 url(../images/good.png) 236px center no-repeat;
+}
 
+/*----------Inputs-End----------*/

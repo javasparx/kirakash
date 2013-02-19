@@ -30,6 +30,53 @@ $(function () {
         }
     });
 
+    var Application = Parse.Object.extend("Application", {
+        // Default attributes for the todoA.
+        defaults:{
+            active:true,
+            type:"offer",
+            country:"Uzbekistan",
+            from:"",
+            to:"",
+            date:new Date(),
+            comment:"Empty comment...",
+            isRegular:false,
+            stops:[],
+            places:1,
+            isSmoker:false,
+            vehicle:Parse.User.current().vehicle,
+            payment:"Cash when driving",
+            price:"",
+            contact:{
+                name:Parse.User.current().name,
+                phone:{
+                    value:Parse.User.current().phone,
+                    visible:true
+                },
+                mobile:{
+                    value:Parse.User.current().mobile,
+                    visible:true
+                },
+                email:{
+                    value:Parse.User.current().email,
+                    visible:true
+                }
+            }
+        },
+
+        // Ensure that each todoA created has `content`.
+        initialize:function () {
+//            if (!this.get("content")) {
+//                this.set({"content":this.defaults.content});
+//            }
+        },
+
+        // Toggle the `done` state of this todoA item.
+        toggle:function () {
+//            this.save({done:!this.get("done")});
+        }
+    });
+
     // This is the transient application state, not persisted on Parse
     var AppState = Parse.Object.extend("AppState", {
         defaults:{
