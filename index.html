@@ -5,11 +5,14 @@
     <title>Parse JavaScript Todo App</title>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/core.css" media="all" rel="stylesheet" type="text/css"/>
+    <link href="css/smoothness/jquery-ui-1.10.1.custom.min.css" media="all" rel="stylesheet" type="text/css"/>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script src="js/jquery-ui-1.10.1.custom.js"></script>
+    <!--<script src="js/jquery.ui.datepicker-uz.js"></script>-->
     <script src="js/underscore-1.1.6.js"></script>
     <script src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>
     <script src="js/core.js"></script>
+    <script src="js/views/app-view.js"></script>
     <script src="js/views/popup-form.js"></script>
     <script src="js/views/user-view.js"></script>
     <script src="js/app.js"></script>
@@ -25,6 +28,7 @@
     </div>
     <a id="test-login" class="button">Login Test</a>
     <a id="test-signup" class="button">Sign Up Test</a>
+    <a id="test-app" class="button">App Test</a>
 
     <div class="content">
     </div>
@@ -39,7 +43,6 @@
 </div>
 
 <!-- Templates -->
-<!-- TODO - Do it like Sign Up -->
 <script type="text/template" id="login-template">
     <div class="login">
         <form class="login-form">
@@ -59,14 +62,10 @@
         <form class="signup-form" name="Sign Up">
             <div class="error" style="display:none"></div>
             <input type="hidden" class="more" value="It will take only 30 seconds">
+
             <div class="txt-field">
                 <label for="signup-username">Username</label>
                 <input type="text" id="signup-username" placeholder="Username"/>
-            </div>
-
-            <div class="txt-field">
-                <label for="signup-email">Email</label>
-                <input type="email" id="signup-email" placeholder="example@mail.com"/>
             </div>
 
             <div class="txt-field">
@@ -80,14 +79,102 @@
             </div>
 
             <div class="txt-field">
-                <label for="signup-city">City</label>
-                <input type="text" id="signup-city" placeholder="City"/>
+                <label for="signup-name">Name</label>
+                <input type="text" id="signup-name" placeholder="Ful Name"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="signup-email">Email</label>
+                <input type="email" id="signup-email" placeholder="example@mail.com"/>
             </div>
 
             <div class="txt-field">
                 <label for="signup-phone">Phone Number</label>
                 <input type="text" id="signup-phone" placeholder="+99812 345 67 89"/>
             </div>
+        </form>
+    </div>
+</script>
+
+<script type="text/template" id="app-template">
+    <div class="app">
+        <form class="app-form" name="Application">
+            <div class="error" style="display:none"></div>
+
+            <div class="txt-field">
+                <label for="app-type">Type</label>
+                <select id="app-type">
+                    <% _.each(types,function(item, index){%>
+                    <option>
+                        <%=item%>
+                    </option>
+                    <%});%>
+                </select>
+            </div>
+
+            <div class="txt-field">
+                <label for="app-time">Time</label>
+                <input type="text" id="app-time" value="<%= time%>" placeholder="23:45"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="app-date">Date</label>
+                <input type="text" id="app-date" value="<%= date%>"  placeholder="01.31.2013"/>
+            </div>
+
+            <div class="txt-field">
+                <label for="app-from">From</label>
+
+                <select id="app-from">
+                    <% _.each(cities,function(city, index){%>
+                    <option>
+                        <%=city%>
+                    </option>
+                    <%});%>
+                </select>
+
+            </div>
+
+            <div class="txt-field">
+                <label for="app-to">To</label>
+
+                <select id="app-to">
+                    <% _.each(cities,function(city, index){%>
+                    <option>
+                        <%=city%>
+                    </option>
+                    <%});%>
+                </select>
+            </div>
+
+            <div class="txt-field">
+                <label for="app-place">Places</label>
+
+                <select id="app-place">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                </select>
+            </div>
+
+            <!--Tested it is working-->
+            <div class="txt-field">
+                <label for="app-smoker">Smoker</label>
+                <input type="checkbox" id="app-smoker" <%if(app.isSmoker){%> checked='checked' <%}%>/>
+            </div>
+
+            <div class="txt-field">
+                <label for="app-vehicle">Vehicle</label>
+
+                <div id="app-vehicle"></div>
+            </div>
+
+            <div class="txt-field">
+                <label for="app-comment">Comment</label>
+                <textarea id="app-comment" placeholder=""><%=app.comment%></textarea>
+            </div>
+
         </form>
     </div>
 </script>

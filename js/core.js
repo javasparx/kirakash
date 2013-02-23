@@ -15,3 +15,15 @@ jQuery.fn.center = function () {
 function isDefined(o) {
     return !_.isEmpty(o);
 }
+
+window.ages = ["1-13","14-21","22-30","31-50","51-100"];
+window.types = ["Offer","Request"];
+
+function setUserDetails(user, city, vehicle, isMale, age, mobile, more) {
+    user.set("city", "");
+    user.set("vehicle", "");
+    user.set("isMale", true);
+    user.set("age", "");
+    user.set("mobile", "");
+    user.set("more", "");
+}

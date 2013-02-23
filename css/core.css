@@ -157,8 +157,16 @@
     text-align: left;
 }
 
-.txt-field input {
+.txt-field select{
+    width: 256px;
+}
+
+.txt-field input{
     width: 244px;
+}
+
+.txt-field input, .txt-field select {
+    /*width: 244px;*/
     padding: 5px;
 
     border-radius: 4px;

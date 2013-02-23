@@ -16,7 +16,7 @@ window.LogInView = Parse.View.extend({
 //        this.render();
     },
 
-    logIn:function (e) {
+    logIn:function (callback) {
         var self = this;
         var username = this.$("#login-username").val();
         var password = this.$("#login-password").val();
@@ -26,8 +26,8 @@ window.LogInView = Parse.View.extend({
                 new window.ManageTodosView();
                 self.undelegateEvents();
                 delete self;
-                if (_.isFunction(e)) {
-                    e();
+                if (_.isFunction(callback)) {
+                    callback();
                 }
             },
 
@@ -42,6 +42,17 @@ window.LogInView = Parse.View.extend({
         return false;
     },
 
+    fillUserData:function (user, username, password, name, phone, email) {
+        user.set("username", username);
+        user.set("password", password);
+
+        user.set("name", name);
+        user.set("phone", phone);
+        user.set("email", email);
+        user.set("active", true);
+        user.set("ACL", new Parse.ACL());
+    },
+
     signUp:function (callback) {
         var self = this;
         var password = this.$("#signup-password").val();
@@ -54,18 +65,13 @@ window.LogInView = Parse.View.extend({
 
         var username = this.$("#signup-username").val();
         var phone = this.$("#signup-phone").val();
-        var city = this.$("#signup-city").val();
+        var name = this.$("#signup-name").val();
         var email = this.$("#signup-email").val();
 
         var user = new Parse.User();
-        user.set("username", username);
-        user.set("password", password);
-        user.set("phone", phone);
-        user.set("city", city);
-        user.set("email", email);
-//        user.set("vehicle", email);
 
-        user.set("ACL", new Parse.ACL());
+        this.fillUserData(user, username, password, name, phone, email);
+//        setUserDetails(user);
 
         user.signUp(null, {
             success:function (user) {
@@ -110,18 +116,18 @@ window.LogInView = Parse.View.extend({
     }
 });
 
-window.UserModel = Parse.Object.extend("User", {
-    defaults:{
-        active:true,
-        username:"",
-        password:"",
-        phone:"",
-        city:"",
-        email:"",
-        ACL:"",
-        mobile:"",
-        vehicle:"",
-        name:"",
-        more:""
-    }
-});
+window.UserModel = {
+    name:"",
+    email:"",
+    isMale:true,
+    age:"",
+    username:"",
+    password:"",
+    phone:"",
+    mobile:"",
+    vehicle:"",
+    city:"",
+    more:"",
+    active:true,
+    ACL:new Parse.ACL()
+};

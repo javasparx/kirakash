@@ -30,53 +30,6 @@ $(function () {
         }
     });
 
-    var Application = Parse.Object.extend("Application", {
-        // Default attributes for the todoA.
-        defaults:{
-            active:true,
-            type:"offer",
-            country:"Uzbekistan",
-            from:"",
-            to:"",
-            date:new Date(),
-            comment:"Empty comment...",
-            isRegular:false,
-            stops:[],
-            places:1,
-            isSmoker:false,
-            vehicle:Parse.User.current().vehicle,
-            payment:"Cash when driving",
-            price:"",
-            contact:{
-                name:Parse.User.current().name,
-                phone:{
-                    value:Parse.User.current().phone,
-                    visible:true
-                },
-                mobile:{
-                    value:Parse.User.current().mobile,
-                    visible:true
-                },
-                email:{
-                    value:Parse.User.current().email,
-                    visible:true
-                }
-            }
-        },
-
-        // Ensure that each todoA created has `content`.
-        initialize:function () {
-//            if (!this.get("content")) {
-//                this.set({"content":this.defaults.content});
-//            }
-        },
-
-        // Toggle the `done` state of this todoA item.
-        toggle:function () {
-//            this.save({done:!this.get("done")});
-        }
-    });
-
     // This is the transient application state, not persisted on Parse
     var AppState = Parse.Object.extend("AppState", {
         defaults:{
@@ -368,20 +321,20 @@ $(function () {
                     var login = new window.LogInView().loginForm();
 
                     var popup = new window.PopupForm({
-                        onClose: function () {
+                        onClose:function () {
                             //                            login.$el.remove();
                         },
-                        onAccepted: function () {
+                        onAccepted:function () {
                             login.logIn(function () {
                                 popup.close();
                             });
                         },
-                        title: "Login",
+                        title:"Login",
 //                        more: "This is login window",
-                        popupWidth: 300,
-                        showOkButton: false,
-                        buttonText: "Login",
-                        content: login.$el
+                        popupWidth:300,
+                        showOkButton:false,
+                        buttonText:"Login",
+                        content:login.$el
                     });
                 });
                 $("#test-signup").click(function () {
@@ -403,6 +356,31 @@ $(function () {
                         showOkButton:false,
                         buttonText:"Sign Up",
                         content:login.$el
+                    });
+                });
+
+                $("#test-app").click(function () {
+//                    var model = window.Application();
+                    var app = new window.AppView({
+                        model:new window.Application()
+//                        app:new window.Application()
+                    });
+
+                    var popup = new window.PopupForm({
+                        onClose:function () {
+//                            login.$el.remove();
+                        },
+                        onAccepted:function () {
+//                            login.signUp(function () {
+                            popup.close();
+//                            });
+                        },
+                        title:"Application",
+//                        more:"This is sign up window",
+                        popupWidth:450,
+                        showOkButton:false,
+                        buttonText:"Save",
+                        content:app.$el
                     });
                 });
 
