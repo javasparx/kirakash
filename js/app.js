@@ -311,80 +311,101 @@ $(function () {
         },
 
         render:function () {
-            if (Parse.User.current()) {
-                new ManageTodosView();
-            } else {
-                /*TODO - remove after dev*/
+//            if (Parse.User.current()) {
+//                new ManageTodosView();
+//            } else {
+            /*TODO - remove after dev*/
 
-                $("#test-login").click(function () {
+            $("#test-login").click(function () {
 
-                    var login = new window.LogInView().loginForm();
+                var login = new window.LogInView().loginForm();
 
-                    var popup = new window.PopupForm({
-                        onClose:function () {
-                            //                            login.$el.remove();
-                        },
-                        onAccepted:function () {
-                            login.logIn(function () {
-                                popup.close();
-                            });
-                        },
-                        title:"Login",
-//                        more: "This is login window",
-                        popupWidth:300,
-                        showOkButton:false,
-                        buttonText:"Login",
-                        content:login.$el
-                    });
-                });
-                $("#test-signup").click(function () {
-
-                    var login = new window.LogInView().signUpForm();
-
-                    var popup = new window.PopupForm({
-                        onClose:function () {
-//                            login.$el.remove();
-                        },
-                        onAccepted:function () {
-                            login.signUp(function () {
-                                popup.close();
-                            });
-                        },
-                        title:"Sign Up",
-                        more:"This is sign up window",
-                        popupWidth:450,
-                        showOkButton:false,
-                        buttonText:"Sign Up",
-                        content:login.$el
-                    });
-                });
-
-                $("#test-app").click(function () {
-//                    var model = window.Application();
-                    var app = new window.AppView({
-                        model:new window.Application()
-//                        app:new window.Application()
-                    });
-
-                    var popup = new window.PopupForm({
-                        onClose:function () {
-//                            login.$el.remove();
-                        },
-                        onAccepted:function () {
-//                            login.signUp(function () {
+                var popup = new window.PopupForm({
+                    onClose:function () {
+                        //                            login.$el.remove();
+                    },
+                    onAccepted:function () {
+                        login.logIn(function () {
                             popup.close();
-//                            });
-                        },
-                        title:"Application",
-//                        more:"This is sign up window",
-                        popupWidth:450,
-                        showOkButton:false,
-                        buttonText:"Save",
-                        content:app.$el
-                    });
+                        });
+                    },
+                    title:"Login",
+//                        more: "This is login window",
+                    popupWidth:300,
+                    showOkButton:false,
+                    buttonText:"Login",
+                    content:login.$el
+                });
+            });
+            $("#test-signup").click(function () {
+
+                var login = new window.LogInView().signUpForm();
+
+                var popup = new window.PopupForm({
+                    onClose:function () {
+//                            login.$el.remove();
+                    },
+                    onAccepted:function () {
+                        login.signUp(function () {
+                            popup.close();
+                        });
+                    },
+                    title:"Sign Up",
+                    more:"This is sign up window",
+                    popupWidth:450,
+                    showOkButton:false,
+                    buttonText:"Sign Up",
+                    content:login.$el
+                });
+            });
+
+            $("#test-app").click(function () {
+//                    var model = window.Application();
+                var app = new window.AppView({
+                    model:new window.Application()
+//                        app:new window.Application()
                 });
 
-            }
+                var popup = new window.PopupForm({
+                    onClose:function () {
+//                            login.$el.remove();
+                    },
+                    onAccepted:function () {
+                        app.submit(function () {
+                            popup.close();
+                        });
+                    },
+                    title:"Application",
+//                        more:"This is sign up window",
+                    popupWidth:450,
+                    showOkButton:false,
+                    buttonText:"Save",
+                    content:app.$el
+                });
+            });
+
+            $("#test-contact").click(function () {
+//                    var model = window.Application();
+                var contactView = new window.ContactManagerView({type:"phone"}).render();
+
+                var popup = new window.PopupForm({
+                    onClose:function () {
+//                            login.$el.remove();
+                    },
+                    onAccepted:function () {
+//                            app.submit(function () {
+//                                popup.close();
+//                            });
+                    },
+                    title:"Contact: Phone",
+//                        more:"This is sign up window",
+                    popupWidth:350,
+                    buttonText:"Save",
+                    content:contactView.$el
+                });
+            });
+
+//            }
         }
     });
 

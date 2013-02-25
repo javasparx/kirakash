@@ -6,7 +6,8 @@
 window.LogInView = Parse.View.extend({
     events:{
         "submit form.login-form":"logIn",
-        "submit form.signup-form":"signUp"
+        "submit form.signup-form":"signUp",
+        "click .log-out":"logOut"
     },
 
 //    el:".content",
@@ -23,7 +24,7 @@ window.LogInView = Parse.View.extend({
 
         Parse.User.logIn(username, password, {
             success:function (user) {
-                new window.ManageTodosView();
+//                new window.ManageTodosView();
                 self.undelegateEvents();
                 delete self;
                 if (_.isFunction(callback)) {
@@ -102,7 +103,19 @@ window.LogInView = Parse.View.extend({
 
     loginForm:function () {
         this.$el.html(_.template($("#login-template").html()));
+
+        //TODO - remove after dev
+        this.$("#login-username").val("javasparx");
+        this.$("#login-password").val("123");
+
         return this;
+    },
+
+    logOut:function (e) {
+        Parse.User.logOut();
+        new window.LogInView();
+        this.undelegateEvents();
+        delete this;
     },
 
     /*Todo remove after development*/

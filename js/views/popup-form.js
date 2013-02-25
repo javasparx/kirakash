@@ -42,12 +42,7 @@ window.PopupForm = Parse.View.extend({
             showOkButton:null
         };
 
-        this.options = $.extend(defaults, this.options);
-
-//        this.buttonText = this.options.buttonText;
-//        this.popupWidth = this.options.popupWidth ? this.options.popupWidth : null;
-//        this.popupHeight = this.options.popupHeight ? this.options.popupHeight : null;
-//        this.showOkButton = (this.options.showOkButton != false);
+        this.options = $.extend({}, defaults, this.options);
 
         this.render();
     },

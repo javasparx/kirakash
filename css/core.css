@@ -123,18 +123,29 @@
 
 .button {
     cursor: pointer;
-
-    padding: 5px 10px;
+    text-transform: capitalize;
+    padding: 3px 5px;
     background: #eee;
     font-size: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-bottom: 25px;
-    font-family: "Helvetica Neue",monospace;
+    /*margin-bottom: 25px;*/
+    font-family: "Helvetica Neue", monospace;
 }
 
 .button:hover {
     background-color: #d9d9d9;
+}
+
+a.icon {
+    position: absolute;
+    /*top: 2px;*/
+    width: 1.8em;
+    height: 1.8em;
+    background: #eee;
+
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 /*----------Buttons-End----------*/
@@ -157,15 +168,40 @@
     text-align: left;
 }
 
-.txt-field select{
+.txt-field select {
     width: 256px;
+    font-size: 2em;
 }
 
-.txt-field input{
+.txt-field input {
     width: 244px;
 }
 
-.txt-field input, .txt-field select {
+.txt-field input[type='checkbox'] {
+    height: 27px;
+}
+
+.txt-field input[type='number'] {
+    /*height: 27px;*/
+    width: 114px;
+}
+
+.txt-field textarea {
+    width: 244px;
+    height: 100px;
+}
+
+.txt-field option {
+    height: 27px;
+    padding: 5px;
+    font-size: 1.2em;
+    color: #222;
+    background: #F7F7F7;
+    font-family: "Helvetica Neue", serif;
+    outline: none;
+}
+
+.txt-field input, .txt-field select, .txt-field textarea, .input {
     /*width: 244px;*/
     padding: 5px;
 
@@ -176,7 +212,7 @@
     font-size: 1.2em;
     color: #222;
     background: #F7F7F7;
-    font-family: "Helvetica Neue",serif;
+    font-family: "Helvetica Neue", serif;
     outline: none;
     border: 1px solid #CCC;
     border-right-color: #E7E6E6;
@@ -187,4 +223,15 @@
     background: #DEF5E1 url(../images/good.png) 236px center no-repeat;
 }
 
+/*Input text as Label*/
+.fake-label {
+    background: transparent;
+    border: 0;
+}
+
 /*----------Inputs-End----------*/
+
+form {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}

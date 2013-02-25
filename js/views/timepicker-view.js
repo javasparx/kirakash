@@ -5,59 +5,29 @@
 
 window.AppView = Parse.View.extend({
     events:{
-        "submit form.app-form":"submit"
+        "click .prevHour":"previousHour",
+        "click .nextHour":"nextHour",
+        "click .prevMin":"previousMin",
+        "click .nextMin":"nextMin"
     },
 
 //    el:".content",
 
     initialize:function () {
-        _.bindAll(this, "submit");
+        _.bindAll(this, "previousHour","nextHour","previousMin","nextMin");
         this.render();
     },
 
     submit:function (callback) {
         var self = this;
-//        var password = this.$("#signup-password").val();
-//        var passwordConfirm = this.$("#signup-password-confirm").val();
-
-//        if (password != passwordConfirm) {
-//            this.$(".signup-form .error").html("Password and Password Confirm should be same").show();
-//            return false;
-//        }
-
-//        var username = this.$("#signup-username").val();
-//        var phone = this.$("#signup-phone").val();
-//        var name = this.$("#signup-name").val();
-//        var email = this.$("#signup-email").val();
-
-//        var user = new Parse.User();
-
-//        this.fillUserData(user, username, password, name, phone, email);
 
 
-//        user.signUp(null, {
-//            success:function (user) {
-//                new ManageTodosView();
-//                self.undelegateEvents();
-//                delete self;
-        if (_.isFunction(callback)) {
-            callback();
-        }
-//            },
-//            error:function (user, error) {
-//                self.$(".signup-form .error").html(error.message).show();
-//                self.$(".signup-form button").removeAttr("disabled");
-//            }
-//        });
-
-//        this.$(".signup-form button").attr("disabled", "disabled");
 
         return false;
     },
 
     render:function () {
         var self = this;
-
 
         this.template = _.template($('#app-template').html());
 
@@ -83,10 +53,6 @@ window.AppView = Parse.View.extend({
             showOtherMonths:true,
             selectOtherMonths:true
         });
-
-//        var model = new window.Contact();
-
-//        this.$el.prepend(row.$el);
 
 
 //        self.$('#app-time').blur(function () {
@@ -140,13 +106,11 @@ window.Application = Parse.Object.extend("Application", {
         date.setMinutes(0);
 
         this.set("date", date);
-        this.set("contact.phone.name", "HAHAA");
         if (Parse.User.current()) {
-            this.set("vehicle", Parse.User.current().vehicle);
-//            this.attributes.vehicle = Parse.User.current().vehicle;
+            this.attributes.vehicle = Parse.User.current().vehicle;
             this.attributes.contact.phone.name = Parse.User.current().phone;
-            this.attributes.contact.mobile.name = Parse.User.current().mobile;
-            this.attributes.contact.email.name = Parse.User.current().email;
+            this.attributes.contact.phone.mobile = Parse.User.current().mobile;
+            this.attributes.contact.phone.email = Parse.User.current().email;
         }
     },
 

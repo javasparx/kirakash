@@ -3,15 +3,31 @@
 <head>
     <meta charset="utf-8">
     <title>Parse JavaScript Todo App</title>
+    <link href="css/reset.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/core.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/smoothness/jquery-ui-1.10.1.custom.min.css" media="all" rel="stylesheet" type="text/css"/>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
-    <script src="js/jquery-ui-1.10.1.custom.js"></script>
-    <!--<script src="js/jquery.ui.datepicker-uz.js"></script>-->
     <script src="js/underscore-1.1.6.js"></script>
-    <script src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>
+
+    <!--Online, Production mode-->
+
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script src="js/dev/jquery-ui-1.10.1.custom.js"></script>
+    <!--<script src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>-->
+
+    <!--Prod mode-->
+
+
+    <!--Offline, Development mode-->
+
+    <!--<script src="js/dev/jquery-1.7.2.min.js"></script>-->
+    <!--<script src="js/dev/jquery-ui-1.10.1.custom.js"></script>-->
+    <script src="js/dev/parse-1.2.1.js"></script>
+
+    <!--Dev mode-->
+
     <script src="js/core.js"></script>
+    <script src="js/views/row-container-view.js"></script>
     <script src="js/views/app-view.js"></script>
     <script src="js/views/popup-form.js"></script>
     <script src="js/views/user-view.js"></script>
@@ -21,14 +37,16 @@
 <body>
 
 <!-- Todo App Interface -->
+<a id="test-login" class="button">Login</a>
+<a id="test-signup" class="button">Sign Up</a>
+<a href="#" class="log-out button">Log Out</a>
 
 <div id="todoapp">
     <div class="title">
         <h1>KiraKash.UZ</h1>
     </div>
-    <a id="test-login" class="button">Login Test</a>
-    <a id="test-signup" class="button">Sign Up Test</a>
-    <a id="test-app" class="button">App Test</a>
+    <a id="test-app" class="button">App</a>
+    <a id="test-contact" class="button">Contact</a>
 
     <div class="content">
     </div>
@@ -54,6 +72,23 @@
                 <input type="password" id="login-password" placeholder="Password"/>
             </div>
         </form>
+    </div>
+</script>
+
+<script type="text/template" id="timepicker-template">
+    <div class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
+        <a class="ui-datepicker-prev ui-corner-all" data-handler="prev" data-event="click" title="Prev">
+            <span class="ui-icon ui-icon-circle-triangle-w">Prev</span>
+        </a>
+        <a class="ui-datepicker-next ui-corner-all" data-handler="next" data-event="click"
+           title="Next">
+            <span class="ui-icon ui-icon-circle-triangle-e">Next</span>
+        </a>
+
+        <div class="ui-datepicker-title">
+            <span class="ui-datepicker-month">February</span>&nbsp;
+            <span class="ui-datepicker-year">2013</span>
+        </div>
     </div>
 </script>
 
@@ -113,13 +148,16 @@
             </div>
 
             <div class="txt-field">
-                <label for="app-time">Time</label>
-                <input type="text" id="app-time" value="<%= time%>" placeholder="23:45"/>
+                <!--for="app-time"-->
+                <label>Time</label>
+                <input type="number" min="0" max="23" step="1" value="00">
+                <input type="number" min="0" max="59" step="15" value="00">
+
             </div>
 
             <div class="txt-field">
                 <label for="app-date">Date</label>
-                <input type="text" id="app-date" value="<%= date%>"  placeholder="01.31.2013"/>
+                <input type="text" id="app-date" value="<%= date%>" placeholder="01.31.2013"/>
             </div>
 
             <div class="txt-field">
@@ -166,17 +204,39 @@
 
             <div class="txt-field">
                 <label for="app-vehicle">Vehicle</label>
-
-                <div id="app-vehicle"></div>
+                <input type="text" id="app-vehicle" placeholder="what car do you drive?">
+                <!--Todo - replace-->
+                <!--<div id="app-vehicle"></div>-->
             </div>
 
             <div class="txt-field">
                 <label for="app-comment">Comment</label>
-                <textarea id="app-comment" placeholder=""><%=app.comment%></textarea>
+                <textarea id="app-comment"
+                          placeholder="Add some more information about ride..."><%=app.comment%></textarea>
             </div>
 
         </form>
     </div>
+</script>
+
+
+<script type="text/template" id="row-template">
+    <input type="text" class="item-edit input" placeholder="New name..." required>
+    <input type="submit" class="save" value="Edit">
+    <a class="destroy button">X</a>
+</script>
+
+<script type="text/template" id="manage-contact-template">
+    <form class="section">
+        <header id="contact-header">
+            <input id="new-contact" type="text" class="input" autofocus="autofocus" placeholder="New..." required/>
+            <input type="submit" class="save" value="ADD"/>
+            <a class="button clear">Clear</a>
+        </header>
+        <ul id="contact-list">
+
+        </ul>
+    </form>
 </script>
 
 <script type="text/template" id="popup-template">
