@@ -4,15 +4,14 @@
  */
 
 window.ContactManagerView = Parse.View.extend({
+    tagName:"form",
+    className:"contact-form",
     events:{
         "click .save":"save",
         "click .clear":"clear"
     },
 
-//    el:".content",
-
     initialize:function () {
-//        var self = this;
 
         _.bindAll(this, 'addOne', 'addAll', 'render');
 
@@ -114,7 +113,7 @@ window.ContactView = Parse.View.extend({
         "dblclick .item-edit":"edit",
         "click .destroy":"clear",
 //        "keypress .edit":"updateOnEnter",
-        "blur .item-edit":"close"
+        "blur":"close"
     },
 
     initialize:function () {
