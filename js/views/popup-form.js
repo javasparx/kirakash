@@ -69,7 +69,7 @@ window.PopupForm = Parse.View.extend({
             content = '<div class="no-content c">Loading...</div>';
         }
 
-        $('.popup-content', this.$el).html(content);
+        this.$('.popup-content').html(content);
 
         $('body').append(this.$el);
 
@@ -84,7 +84,7 @@ window.PopupForm = Parse.View.extend({
         }
 
         if (this.options.showOkButton != false) {
-            $('.popup-footer', this.$el).show();
+            this.$('.popup-footer').show();
         }
 
         //Use cached "this.$el" instead of "$(this.el)"
