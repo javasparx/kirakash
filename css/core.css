@@ -114,7 +114,7 @@
 .popup-footer {
     overflow: visible;
     padding: 18px 18px 14px 18px;
-    border-top: 1px solid #EEE;
+    border-top: 1px solid #CCC;
 }
 
 /*----------Popup-End----------*/
@@ -229,9 +229,17 @@ a.icon {
     border: 0;
 }
 
+label span {
+    color: red;
+}
+
 /*----------Inputs-End----------*/
 
-form {
-    margin-bottom: 5px;
-    margin-top: 5px;
+.contact-form form {
+    margin: 5px 10px;
+    border-bottom: 1px solid #EEE;
+}
+
+.contact-form form:last-of-type {
+    border-bottom: none;
 }

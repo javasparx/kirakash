@@ -331,7 +331,7 @@ $(function () {
                     },
                     title:"Login",
 //                        more: "This is login window",
-                    popupWidth:300,
+                    popupWidth:350,
                     showOkButton:false,
                     buttonText:"Login",
                     content:login.$el
@@ -381,6 +381,79 @@ $(function () {
                     showOkButton:false,
                     buttonText:"Save",
                     content:app.$el
+                });
+            });
+
+            $("#test-form").click(function () {
+
+                var form = new window.FormView({
+                    model:new window.Application(),
+                    form:{name:"app"},
+                    schema:[
+                        {
+                            label:"Type",
+                            name:'type',
+                            type:window.fieldTypes.select,
+                            options:window.appTypes
+
+                        },
+                        {
+                            label:'Date',
+                            name:'date',
+                            type:'datepicker',
+                            required:true
+                        },
+                        {
+                            label:'From',
+                            name:"from",
+                            type:'select',
+                            options:window.cities
+                        },
+                        {
+                            label:'To',
+                            name:"to",
+                            type:'select',
+                            options:window.cities
+                        },
+                        {
+                            label:"Places",
+                            name:'places',
+                            type:window.fieldTypes.select,
+                            options:[1, 2, 3, 4]
+                        },
+                        {
+                            label:'Smoker',
+                            name:'isSmoker',
+                            type:'checkbox'
+                        },
+                        {
+                            label:'Vehicle',
+                            name:'vehicle',
+                            type:window.fieldTypes.label,
+                            ph:'Please add vehicle to your profile',
+                            required:true
+                        },
+                        {
+                            label:'Comment',
+                            name:'comment',
+                            type:window.fieldTypes.textarea,
+                            ph:'Describe your trip...'
+                        }
+                    ]
+                });
+
+                var popup = new window.PopupForm({
+
+                    onAccepted:function () {
+//                        app.submit(function () {
+                        popup.close();
+//                        });
+                    },
+
+                    title:"Application",
+                    popupWidth:450,
+                    buttonText:"OK",
+                    content:form.$el
                 });
             });
 

@@ -31,6 +31,7 @@
     <script src="js/views/app-view.js"></script>
     <script src="js/views/popup-form.js"></script>
     <script src="js/views/user-view.js"></script>
+    <script src="js/views/form-view.js"></script>
     <script src="js/app.js"></script>
 </head>
 
@@ -47,6 +48,7 @@
     </div>
     <a id="test-app" class="button">App</a>
     <a id="test-contact" class="button">Contact</a>
+    <a id="test-form" class="button">Form</a>
 
     <div class="content">
     </div>
@@ -66,9 +68,11 @@
         <form class="login-form">
             <div class="error" style="display:none"></div>
             <div class="txt-field">
+                <label for="login-username">Username</label>
                 <input type="text" id="login-username" placeholder="Username"/>
             </div>
             <div class="txt-field">
+                <label for="login-password">Password</label>
                 <input type="password" id="login-password" placeholder="Password"/>
             </div>
         </form>
@@ -129,6 +133,49 @@
             </div>
         </form>
     </div>
+</script>
+
+<script type="text/template" id="field-template">
+    <li>
+        <form class="form-<%=par.name%>">
+            <input type="hidden" class="error" value="<%=par.error%>"/>
+
+            <div class="txt-field">
+
+                <label for="<%=form.name%>-<%= par.name%>"><%=par.label%><%=(par.required==true)?'<span> *</span>':''%></label>
+
+                <%if(par.type=='input' || par.type=='datepicker' || par.type=='label'){%>
+
+                <input type="text" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" value="<%=par.value%>"
+                       placeholder="<%=par.ph%>" <%=(par.type=='label')?'disabled':''%>
+                <%=(par.required==true)?'required':''%>/>
+
+                <%} else if(par.type=='select'){%>
+
+                <select data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>">
+                    <% _.each(par.options,function(option, index){%>
+                    <option
+                    <%=(par.value==option)?'selected':''%>>
+                    <%=option%>
+                    </option>
+                    <%});%>
+                </select>
+
+                <%} else if(par.type=='checkbox'){%>
+
+                <input type="checkbox" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>"
+                <%=(par.value==true)?"checked='checked'":''%>
+                />
+
+                <%} else if(par.type=='textarea'){%>
+
+                <textarea data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" placeholder="<%=par.ph%>"><%=par.value%></textarea>
+
+                <%}%>
+
+            </div>
+        </form>
+    </li>
 </script>
 
 <script type="text/template" id="app-template">
@@ -219,7 +266,6 @@
     </div>
 </script>
 
-
 <script type="text/template" id="row-template">
     <input type="text" class="item-edit input" placeholder="New name..." required>
     <input type="submit" class="save" value="Edit">
@@ -227,16 +273,16 @@
 </script>
 
 <script type="text/template" id="manage-contact-template">
-    <form class="section">
-        <header id="contact-header">
-            <input id="new-contact" type="text" class="input" autofocus="autofocus" placeholder="New..." required/>
-            <input type="submit" class="save" value="ADD"/>
-            <a class="button clear">Clear</a>
-        </header>
-        <ul id="contact-list">
+    <!--<form class="section">-->
+    <header id="contact-header">
+        <input id="new-contact" type="text" class="input" autofocus="autofocus" placeholder="New..." required/>
+        <input type="submit" class="save" value="ADD"/>
+        <a class="button clear">Clear</a>
+    </header>
+    <ul id="contact-list">
 
-        </ul>
-    </form>
+    </ul>
+    <!--</form>-->
 </script>
 
 <script type="text/template" id="popup-template">

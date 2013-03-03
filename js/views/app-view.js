@@ -117,7 +117,7 @@ window.Application = Parse.Object.extend("Application", {
         isRegular:false,
         stops:[],
         places:3,
-        isSmoker:false,
+        isSmoker:true,
         payment:"Cash when driving",
         price:"",
         contact:{
@@ -147,6 +147,7 @@ window.Application = Parse.Object.extend("Application", {
             this.attributes.contact.phone.name = Parse.User.current().phone;
             this.attributes.contact.mobile.name = Parse.User.current().mobile;
             this.attributes.contact.email.name = Parse.User.current().email;
+            this.set("user", Parse.User.current());
         }
     },
 
