@@ -140,14 +140,16 @@ window.Application = Parse.Object.extend("Application", {
         date.setMinutes(0);
 
         this.set("date", date);
-        this.set("contact.phone.name", "HAHAA");
+//        this.set("contact.phone.name", "HAHAA");
         if (Parse.User.current()) {
             this.set("vehicle", Parse.User.current().vehicle);
-//            this.attributes.vehicle = Parse.User.current().vehicle;
-            this.attributes.contact.phone.name = Parse.User.current().phone;
-            this.attributes.contact.mobile.name = Parse.User.current().mobile;
-            this.attributes.contact.email.name = Parse.User.current().email;
+            this.attributes.vehicle = Parse.User.current().vehicle;
+//            this.attributes.contact.phone.name = Parse.User.current().phone;
+//            this.attributes.contact.mobile.name = Parse.User.current().mobile;
+//            this.attributes.contact.email.name = Parse.User.current().email;
             this.set("user", Parse.User.current());
+//            this.set("ACL", Parse.ACL(Parse.User.current()));
+//            this.setWriteAccess(false);
         }
     },
 

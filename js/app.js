@@ -419,7 +419,7 @@ $(function () {
                             label:"Places",
                             name:'places',
                             type:window.fieldTypes.select,
-                            options:[1, 2, 3, 4]
+                            options:['1', '2', '3', '4']
                         },
                         {
                             label:'Smoker',
@@ -429,7 +429,7 @@ $(function () {
                         {
                             label:'Vehicle',
                             name:'vehicle',
-                            type:window.fieldTypes.label,
+                            type:window.fieldTypes.input,
                             ph:'Please add vehicle to your profile',
                             required:true
                         },
@@ -445,9 +445,9 @@ $(function () {
                 var popup = new window.PopupForm({
 
                     onAccepted:function () {
-//                        app.submit(function () {
-                        popup.close();
-//                        });
+                        form.save(function () {
+                            popup.close();
+                        });
                     },
 
                     title:"Application",

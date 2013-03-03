@@ -44,6 +44,21 @@ window.FormView = Parse.View.extend({
         }
     },
 
+    save:function (callback) {
+        this.model.save(
+            this.model,
+            {
+                success:function () {
+                    alert('s');
+                },
+                error:function () {
+                    alert('f');
+                }
+            }
+        )
+        ;
+    },
+
     render:function () {
 
         var self = this;
@@ -66,6 +81,11 @@ window.FormView = Parse.View.extend({
             } else {
                 /*Set value from model*/
                 item.value = value;
+            }
+
+            if (item.type == window.fieldTypes.select && (value == '' || value == 'undefined' )) {
+                self.model.set(item.name, _.first(item.options));
+                item.value = _.first(item.options);
             }
 
             var data = {
