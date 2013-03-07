@@ -50,7 +50,10 @@ window.FormView = Parse.View.extend({
             this.model,
             {
                 success:function () {
-                    alert('s');
+//                    alert('s');
+                    if (_.isFunction(callback)) {
+                        callback();
+                    }
                 },
                 error:function () {
                     alert('f');

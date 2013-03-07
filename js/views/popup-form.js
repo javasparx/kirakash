@@ -109,6 +109,8 @@ window.PopupForm = Parse.View.extend({
             this.options.onAccepted();
         }
 
+        this.$("a[data-name='accept']").attr("disabled", "disabled");
+
         return false; // Always return false
     },
 

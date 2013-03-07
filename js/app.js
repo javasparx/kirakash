@@ -397,11 +397,11 @@ $(function () {
                             options:window.appTypes
 
                         },
-                        {
-                            label:'Time',
-                            name:'time',
-                            type:'time'
-                        },
+                        /*{
+                         label:'Password',
+                         name:'password',
+                         type:'password'
+                         },*/
                         {
                             label:'Date',
                             name:'date',

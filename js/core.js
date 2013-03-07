@@ -24,7 +24,8 @@ window.types = {
     date:'datepicker',
     checkbox:'checkbox',
     textarea:'textarea',
-    label:'label'
+    label:'label',
+    password:'password'
 };
 window.cities = ['Namangan', 'Tashkent', 'Fergana', 'Andijan'];
 

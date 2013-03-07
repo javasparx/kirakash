@@ -170,6 +170,11 @@
 
             <textarea data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" placeholder="<%=par.ph%>"><%=par.value%></textarea>
 
+            <%} else if(par.type==window.types.password){%>
+
+            <input type="password" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" value="<%=par.value%>"
+                   placeholder="<%=par.ph%>" <%=(par.required==true)?'required':''%>/>
+
             <%}%>
 
         </div>
@@ -291,7 +296,7 @@
         <a class="right popup-close pointer">X</a>
     </div>
     <div class="popup-content"></div>
-    <div class="popup-footer"><a class="button"><%= temp.buttonText %></a></div>
+    <div class="popup-footer"><a class="button" data-name="accept"><%= temp.buttonText %></a></div>
 
 </script>
 
