@@ -18,10 +18,10 @@ function isDefined(o) {
 
 window.ages = ["1-13", "14-21", "22-30", "31-50", "51-100"];
 window.appTypes = ["Offer", "Request"];
-window.fieldTypes = {
+window.types = {
     select:'select',
-    input:'input',
-    datepicker:'datepicker',
+    text:'text',
+    date:'datepicker',
     checkbox:'checkbox',
     textarea:'textarea',
     label:'label'

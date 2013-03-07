@@ -393,9 +393,14 @@ $(function () {
                         {
                             label:"Type",
                             name:'type',
-                            type:window.fieldTypes.select,
+                            type:window.types.select,
                             options:window.appTypes
 
+                        },
+                        {
+                            label:'Time',
+                            name:'time',
+                            type:'time'
                         },
                         {
                             label:'Date',
@@ -418,7 +423,7 @@ $(function () {
                         {
                             label:"Places",
                             name:'places',
-                            type:window.fieldTypes.select,
+                            type:window.types.select,
                             options:['1', '2', '3', '4']
                         },
                         {
@@ -429,14 +434,14 @@ $(function () {
                         {
                             label:'Vehicle',
                             name:'vehicle',
-                            type:window.fieldTypes.input,
+                            type:window.types.input,
                             ph:'Please add vehicle to your profile',
                             required:true
                         },
                         {
                             label:'Comment',
                             name:'comment',
-                            type:window.fieldTypes.textarea,
+                            type:window.types.textarea,
                             ph:'Describe your trip...'
                         }
                     ]

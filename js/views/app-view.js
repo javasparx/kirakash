@@ -8,49 +8,16 @@ window.AppView = Parse.View.extend({
         "submit form.app-form":"submit"
     },
 
-//    el:".content",
-
     initialize:function () {
         _.bindAll(this, "submit");
         this.render();
     },
 
     submit:function (callback) {
-        var self = this;
-//        var password = this.$("#signup-password").val();
-//        var passwordConfirm = this.$("#signup-password-confirm").val();
 
-//        if (password != passwordConfirm) {
-//            this.$(".signup-form .error").html("Password and Password Confirm should be same").show();
-//            return false;
-//        }
-
-//        var username = this.$("#signup-username").val();
-//        var phone = this.$("#signup-phone").val();
-//        var name = this.$("#signup-name").val();
-//        var email = this.$("#signup-email").val();
-
-//        var user = new Parse.User();
-
-//        this.fillUserData(user, username, password, name, phone, email);
-
-
-//        user.signUp(null, {
-//            success:function (user) {
-//                new ManageTodosView();
-//                self.undelegateEvents();
-//                delete self;
         if (_.isFunction(callback)) {
             callback();
         }
-//            },
-//            error:function (user, error) {
-//                self.$(".signup-form .error").html(error.message).show();
-//                self.$(".signup-form button").removeAttr("disabled");
-//            }
-//        });
-
-//        this.$(".signup-form button").attr("disabled", "disabled");
 
         return false;
     },
@@ -76,23 +43,11 @@ window.AppView = Parse.View.extend({
             app:self.model.toJSON()
         }));
 
-//        $.datepicker.setDefaults($.datepicker.regional["uz"]);
-
         self.$("#app-date").datepicker({
             dateFormat:"DD, d MM, yy",
             showOtherMonths:true,
             selectOtherMonths:true
         });
-
-//        var model = new window.Contact();
-
-//        this.$el.prepend(row.$el);
-
-
-//        self.$('#app-time').blur(function () {
-//            self.model.setTime(self.$('#app-time').val());
-//        });
-
 
         this.$("#app-type :contains('" + self.model.get("type") + "')").attr("selected", "selected");
         this.$("#app-from :contains('" + self.model.get("from") + "')").attr("selected", "selected");
@@ -116,7 +71,7 @@ window.Application = Parse.Object.extend("Application", {
         comment:"Empty comment...",
         isRegular:false,
         stops:[],
-        places:3,
+        places:'3',
         isSmoker:true,
         payment:"Cash when driving",
         price:"",

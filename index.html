@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Parse JavaScript Todo App</title>
+    <title>KiraKash</title>
     <link href="css/reset.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/todos.css" media="all" rel="stylesheet" type="text/css"/>
     <link href="css/core.css" media="all" rel="stylesheet" type="text/css"/>
@@ -137,44 +137,42 @@
 
 <script type="text/template" id="field-template">
     <li>
-        <form class="<%=form.name%>-<%=par.name%>">
-            <input type="hidden" class="error" value="<%=par.error%>"/>
+        <input type="hidden" class="error" value="<%=par.error%>"/>
 
-            <div class="txt-field">
+        <div class="txt-field">
 
-                <label for="<%=form.name%>-<%= par.name%>"><%=par.label%><%=(par.required==true)?'<span> *</span>':''%></label>
+            <label for="<%=form.name%>-<%= par.name%>"><%=par.label%><%=(par.required==true)?'<span> *</span>':''%></label>
 
-                <%if(par.type=='input' || par.type=='datepicker' || par.type=='label'){%>
+            <%if(par.type==window.types.text || par.type==window.types.date || par.type==window.types.label){%>
 
-                <input type="text" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" value="<%=par.value%>"
-                       placeholder="<%=par.ph%>" <%=(par.type=='label')?'disabled':''%>
-                <%=(par.required==true)?'required':''%>/>
+            <input type="text" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" value="<%=par.value%>"
+                   placeholder="<%=par.ph%>" <%=(par.type==window.types.label)?'disabled':''%>
+            <%=(par.required==true)?'required':''%>/>
 
-                <%} else if(par.type=='select'){%>
+            <%} else if(par.type==window.types.select){%>
 
-                <select data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>">
-                    <% _.each(par.options,function(option, index){%>
-                    <option
-                    <%=(par.value==option)?'selected':''%>>
-                    <%=option%>
-                    </option>
-                    <%});%>
-                </select>
+            <select data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>">
+                <% _.each(par.options,function(option, index){%>
+                <option
+                <%=(par.value==option)?'selected':''%>>
+                <%=option%>
+                </option>
+                <%});%>
+            </select>
 
-                <%} else if(par.type=='checkbox'){%>
+            <%} else if(par.type==window.types.checkbox){%>
 
-                <input type="checkbox" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>"
-                <%=(par.value==true)?"checked='checked'":''%>
-                />
+            <input type="checkbox" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>"
+            <%=(par.value==true)?"checked='checked'":''%>
+            />
 
-                <%} else if(par.type=='textarea'){%>
+            <%} else if(par.type==window.types.textarea){%>
 
-                <textarea data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" placeholder="<%=par.ph%>"><%=par.value%></textarea>
+            <textarea data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" placeholder="<%=par.ph%>"><%=par.value%></textarea>
 
-                <%}%>
+            <%}%>
 
-            </div>
-        </form>
+        </div>
     </li>
 </script>
 

@@ -11,13 +11,14 @@
  * name - corresponds with attribute name of model.
  *
  * Optional:
- * type - defines UI element type. By default: 'input'. [input, checkbox, select, textarea, datepicker]
+ * type - defines UI element type. By default: 'input'. [text, checkbox, select, textarea, date]
  * error - error text to popup. By default: 'This field is required'.
  * ph - placeholder text. By default: empty.
  * force - replaces model attribute with schema attribute forcibly. By default: false. [true,false]
  * value - value of UI element. Useless if 'force' is not 'true'. By default: value of correspondent model attribute.
  * options - options of select element. Useless if 'type' is not 'select'. By default: []
  * required - UI element required to be filled. Useless if 'type' is 'checkbox' or 'select'. By default: false
+ *
  *
  * */
 
@@ -33,11 +34,11 @@ window.FormView = Parse.View.extend({
 
         var name = elem.attr('data-name');
 
-        if (options && options.type == 'checkbox') {
+        if (options && options.type == window.types.checkbox) {
             this.model.set(name, elem.is(':checked'));
-        } else if (options && options.type == 'select') {
+        } else if (options && options.type == window.types.select) {
             this.model.set(name, $('#' + elem.attr('id') + ' option:selected').text().trim())
-        } else if (options && options.type == 'datepicker') {
+        } else if (options && options.type == window.types.date) {
             this.model.set(name, options.value);
         } else {
             this.model.set(name, elem.val().trim());
@@ -63,7 +64,7 @@ window.FormView = Parse.View.extend({
 
         var self = this;
         var defaults = {
-            type:'input',
+            type:window.types.text,
             error:'This field is required'
         };
 
@@ -83,7 +84,7 @@ window.FormView = Parse.View.extend({
                 item.value = value;
             }
 
-            if (item.type == window.fieldTypes.select && (value == '' || value == 'undefined' )) {
+            if (item.type == window.types.select && (value == '' || value == 'undefined' )) {
                 self.model.set(item.name, _.first(item.options));
                 item.value = _.first(item.options);
             }
@@ -97,7 +98,7 @@ window.FormView = Parse.View.extend({
 
             var elem = self.$("#" + data.form.name + "-" + item.name);
 
-            if (item.type == 'datepicker') {
+            if (item.type == window.types.date) {
 
                 var d = $.datepicker.formatDate('DD, d MM, yy', item.value);
 
