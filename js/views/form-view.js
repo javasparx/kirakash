@@ -27,6 +27,10 @@ window.FormView = Parse.View.extend({
     className:"form",
 
     initialize:function () {
+
+        /*To prevent multiClick*/
+        this.onprogress = false;
+
         this.render();
     },
 
@@ -46,21 +50,52 @@ window.FormView = Parse.View.extend({
     },
 
     save:function (callback) {
+
+        var self = this;
+
+        if (this.onprogress) {
+            return false;
+        } else {
+            this.onprogress = true;
+        }
+
         this.model.save(
             this.model,
             {
                 success:function () {
-//                    alert('s');
                     if (_.isFunction(callback)) {
                         callback();
                     }
+
+                    self.success();
+
+                    self.onprogress = false;
                 },
                 error:function () {
-                    alert('f');
+                    self.error();
+
+                    self.onprogress = false;
                 }
             }
-        )
-        ;
+        );
+    },
+
+    success:function () {
+        if (_.isFunction(this.options.success)) {
+            this.options.success();
+        }
+    },
+
+    cancel:function () {
+        if (_.isFunction(this.options.success)) {
+            this.options.cancel();
+        }
+    },
+
+    error:function () {
+        if (_.isFunction(this.options.error)) {
+            this.options.error();
+        }
     },
 
     render:function () {

@@ -170,9 +170,9 @@
 
             <textarea data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" placeholder="<%=par.ph%>"><%=par.value%></textarea>
 
-            <%} else if(par.type==window.types.password){%>
+            <%} else if(par.type==window.types.password || par.type==window.types.email){%>
 
-            <input type="password" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" value="<%=par.value%>"
+            <input type="<%=(par.type==window.types.email)?'email':'password'%>" data-name='<%=par.name%>' id="<%=form.name%>-<%=par.name%>" value="<%=par.value%>"
                    placeholder="<%=par.ph%>" <%=(par.required==true)?'required':''%>/>
 
             <%}%>

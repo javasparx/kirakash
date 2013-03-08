@@ -25,7 +25,8 @@ window.types = {
     checkbox:'checkbox',
     textarea:'textarea',
     label:'label',
-    password:'password'
+    password:'password',
+    email:"email"
 };
 window.cities = ['Namangan', 'Tashkent', 'Fergana', 'Andijan'];
 
